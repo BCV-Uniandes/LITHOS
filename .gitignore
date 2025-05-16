@@ -1,5 +1,8 @@
 # Ignore the LITHOS_DATASET_P folder completely
 LITHOS_DATASET_P/
+LITHOS_DATASET_P/** */
+experiments/
+experiments/** */
 
 # Ignore all model weights with .pth.tar extension
 *.pth.tar
@@ -9,3 +12,4 @@ LITHOS_DATASET_P/
 
 # Ignore all zip files
 *.zip
+
