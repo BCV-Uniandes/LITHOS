@@ -9,13 +9,15 @@ LITHOS is the largest publicly available dataset and benchmark for automated pet
 
 To create the conda environment for LITHOS, run the following commands:
 
+```bash
 conda env create -f environment.yaml
 conda activate LITHOS
+```
 
 # Dataset Download
 
 The LITHOS Dataset is available via a private (for now) Kaggle URL. To download:
 
-Register for a Kaggle account if you don't have one.
-Access the private Kaggle dataset link.
-Follow the instructions on Kaggle to download the data (we recommend using curl for efficient downloading).
+1. Register for a Kaggle account if you don't have one.
+2. Access the private Kaggle dataset link.
+3. Follow the instructions on Kaggle to download the data (we recommend using curl for efficient downloading).
