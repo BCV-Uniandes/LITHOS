@@ -150,8 +150,10 @@ class PolarViT(nn.Module):
         # Assert that at least one of use_alpha or use_linear is True
         assert not (use_alpha and use_linear) and (use_alpha or use_linear)
         if self.use_alpha:
+            print("Using alpha weighted approach for fusion of features")
             self.alpha = nn.Parameter(torch.tensor(0.0), requires_grad=True)
         elif self.use_linear:
+            print("Using linear layer approach for fusion of features")
             self.linear_features = nn.Linear(2048, 1024)
 
         if self.freeze_initial_layers:

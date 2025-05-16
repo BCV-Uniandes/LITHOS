@@ -1,8 +1,7 @@
-# Ignore the LITHOS_DATASET_P folder completely
+# Ignore the following folder completely
 LITHOS_DATASET_P/
-LITHOS_DATASET_P/** */
 experiments/
-experiments/** */
+wandb/
 
 # Ignore all model weights with .pth.tar extension
 *.pth.tar

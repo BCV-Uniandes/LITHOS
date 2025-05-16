@@ -31,6 +31,23 @@ logger = logging.get_logger(__name__)
 
 def main():
     parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--use_alpha",
+        dest="fusion_mode",
+        action="store_const",
+        const="alpha",
+        help="Use learnable α-gate fusion (default)"
+    )
+    group.add_argument(
+        "--use_linear",
+        dest="fusion_mode",
+        action="store_const",
+        const="linear",
+        help="Use nn.Linear on concatenated features"
+    )
+    parser.set_defaults(fusion_mode="alpha")
+
     parser.add_argument('--lr', type=float, default=1e-3, help='Initial learning rate (default: 1e-3)')
     parser.add_argument('--epochs', type=int, default=10, help='Maximum number of epochs (default: 10)')
     parser.add_argument('--batch', type=int, default=64, help='Batch size (default: 64)')
@@ -45,8 +62,6 @@ def main():
     parser.add_argument("--root_dataset", type=str, default="LITHOS_DATASET_P/LITHOS_DATASET", help="Root to the dataset")
     parser.add_argument("--balance_dataloader", action="store_true", default=False, help="Balance the dataloader")
     parser.add_argument("--balance_loss", action="store_true", default=False, help="Balance loss")
-    parser.add_argument("--use_alpha", action="store_true", default=True, help="Use alpha parameter")
-    parser.add_argument("--use_linear", action="store_true", default=False, help="Use linear transformation")
     parser.add_argument("--use_xpl", action="store_true", default=False, help="Use XPL data")
     parser.add_argument('--optimizer', type=str, default='Adam', choices=['Adam', 'SGD'], help='Optimizer type (default: Adam)')
     parser.add_argument('--momentum', type=float, default=0.9, help='Momentum for SGD (default: 0.9)')
@@ -55,6 +70,8 @@ def main():
     parser.add_argument('--gamma', type=float, default=0.1, help='Gamma for StepLR scheduler (default: 0.1)')
     parser.add_argument('--T_max', type=int, default=50, help='T_max for CosineAnnealingLR scheduler (default: 50)')
     args = parser.parse_args()
+    use_alpha  = (args.fusion_mode == "alpha")
+    use_linear = (args.fusion_mode == "linear")
 
     global device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -125,7 +142,7 @@ def main():
         decoder_2 = Decoder(config_decoder.hidden_size, config_decoder.num_layers, config_decoder.num_attention_heads)
         classification_head = vit2.heads.head
         
-        model = PolarViT(vit1, vit2, decoder_1, decoder_2, classification_head, use_alpha=args.use_alpha, use_linear=args.use_linear)
+        model = PolarViT(vit1, vit2, decoder_1, decoder_2, classification_head, use_alpha=use_alpha, use_linear=use_linear)
     
     else:
         print("Model not implemented yet")
