@@ -16,11 +16,10 @@ conda activate LITHOS
 
 # Dataset Download
 
-The LITHOS Dataset is available via a private (for now) Kaggle URL. To download:
+The LITHOS Dataset is available in the following Kaggle URL: [Dataset](https://www.kaggle.com/datasets/paolaruizpuentes/lithos-dataset) . To download:
 
 1. Register for a Kaggle account if you don't have one.
-2. Access the private Kaggle dataset link.
-3. Follow the instructions on Kaggle to download the data (we recommend using curl for efficient downloading).
+2. Follow the instructions on Kaggle to download the data (we recommend using curl for efficient downloading).
 
 # PRETRAINED WEIGHTS
 You can find our pretrained weights [here!](https://drive.google.com/drive/folders/1F1ie30OzDnuEoMzrg0uaplnEvY3N2k2H?usp=sharing)
